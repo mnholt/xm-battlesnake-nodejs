@@ -39,22 +39,74 @@ function getSnake(gameState, id){
 function findFood(gameState) {
 
   let mySnake = getMySnake(gameState) 
+  console.log("my snake" + mySnake.coords);
   let head = mySnake.coords[0];
-        if (gameState.food[0][0] < head[0]) {
-            move = "left"
-        }
+  console.log("Head" + head)
+  if (gameState.food[0][0] < head[0]) {
+      move = "left"
+  }
 
-        if (gameState.food[0][0] > head[0]) {
-          move = "right"
-        }
+  if (gameState.food[0][0] > head[0]) {
+    move = "right"
+  }
 
-        if (gameState.food[0][1] < head[1]) {
-          move = "up"
-        }
+  if (gameState.food[0][1] < head[1]) {
+    move = "up"
+  }
 
-        if (gameState.food[0][1] > head[1]) {
-          move = "down"
-        }
-        return move ;
+  if (gameState.food[0][1] > head[1]) {
+    move = "down"
+  }
+
+  if (containObject(mySnake.coords, nextMove(head, move)) == true) {
+    console.log("inside array!");
+  } else {
+    return move ;
+  }
+  
+  return null;
 }
+
+function nextMove(head, direction) {
+
+  switch (direction) {
+    case 'left':
+      return [head[0] - 1, head[1]]
+      break;
+
+    case 'right':
+        return [head[0] + 1, head[1]]
+        break;
+
+    case 'up':
+        return [head[0], head[1] - 1]
+      break;
+
+      case 'down':
+          return [head[0], head[1] + 1]
+        break; 
+
+    default:
+      return head
+  }
+
+}
+
+function containObject(coords, nextMove) {
+
+  for(var i = 0; i < coords.length;i++){
+    if (coords[i][0] == nextMove[0] && coords[i][1] == nextMove[1]) {
+      return true;
+    }
+  } 
+  return false;
+
+}
+
+function findOutSmartMove() {
+
+  
+}
+
+
 module.exports = router
